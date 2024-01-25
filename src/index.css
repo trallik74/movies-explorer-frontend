@@ -1,1 +1,18 @@
 
+@import url('./vendor/normalize.css');
+@import url('./vendor/fonts/fonts.css');
+@import url('./utils/variables.css');
+
+.page {
+  font-family: 'Inter', arial, sans-serif;
+  font-weight: 400;
+  background-color: var(--ui-background_color-primary);
+  color: var(--ui-text_color-font_main);
+}
+
+.page__content {
+  max-width: 1280px;
+  min-width: 320px;
+  margin: 0 auto;
+}
+
