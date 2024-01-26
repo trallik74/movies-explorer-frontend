@@ -38,4 +38,7 @@
 
     --ui-text_color-font_1: var(--gray_450);
     --ui-text_color-font_2: var(--gray_500);
+    
+    --ui-background_color-preloader_1: var(--lime_green);
+    --ui-background_color-preloader_2: var(--gray_900);
   }
