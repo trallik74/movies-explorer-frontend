@@ -30,6 +30,10 @@
   transform: translateY(185px);
 }
 
+.page-not-found__button:hover {
+  opacity: .7;
+}
+
 @media (max-width: 400px) {
   .page-not-found__error {
     margin: 10px 0;
