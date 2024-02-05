@@ -1,0 +1,33 @@
+.header {
+  max-width: 1280px;
+  min-width: 320px;
+  width: 100%;
+  margin: 0 auto;
+  flex: 0 0 auto;
+}
+
+.header__inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1140px;
+  padding: 18px 70px;
+}
+
+@media (max-width: 1024px) {
+  .header__inner {
+    padding: 18px 50px;
+  }
+}
+
+@media (max-width: 800px) {
+  .header__inner {
+    padding: 18px 30px;
+  }
+}
+
+@media (max-width: 400px) {
+  .header__inner {
+    padding: 18px 14px;
+  }
+}
