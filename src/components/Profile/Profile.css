@@ -29,7 +29,7 @@
   margin-bottom: 5px;
 }
 
-.profile___label-text {
+.profile__label-text {
   font-size: 11px;
   font-weight: 500;
   line-height: 13px;
@@ -51,7 +51,7 @@
   font-weight: 500;
 }
 
-.profile___error-message {
+.profile__error-message {
   min-height: 12px;
   font-size: 10px;
   line-height: 12px;
@@ -61,7 +61,7 @@
   overflow: hidden;
 }
 
-.profile___error-message:last-of-type {
+.profile__error-message:last-of-type {
   min-height: 36px;
 }
 
@@ -149,7 +149,7 @@
     margin-bottom: 3px;
   }
 
-  .profile___error-message:last-of-type {
+  .profile__error-message:last-of-type {
     min-height: 48px;
   }
 }

@@ -51,7 +51,7 @@
   line-height: 17px;
 }
 
-.aout-me__photo {
+.about-me__photo {
   display: flex;
   width: 270px;
   height: 327px;
@@ -87,7 +87,7 @@
     margin: 0 0 87px;
   }
 
-  .aout-me__photo {
+  .about-me__photo {
     width: 255px;
     height: 307px;
   }
@@ -127,7 +127,7 @@
     max-width: 292px;
   }
 
-  .aout-me__photo {
+  .about-me__photo {
     width: 292px;
     height: 352px;
   }

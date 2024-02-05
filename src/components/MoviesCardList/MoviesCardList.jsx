@@ -11,6 +11,7 @@ function MoviesCardList({ data }) {
       ) : (
         data.map((movie) => (
           <MoviesCard
+            key={movie._id}
             title={movie.nameRU}
             duration={movie.duration}
             link={movie.trailerLink}

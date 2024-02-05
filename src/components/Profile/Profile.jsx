@@ -38,7 +38,7 @@ function Profile({ isSending }) {
           noValidate
         >
           <label className="profile__label">
-            <span className="profile___label-text">Имя</span>
+            <span className="profile__label-text">Имя</span>
             <input
               type="text"
               name="name"
@@ -51,9 +51,9 @@ function Profile({ isSending }) {
               disabled={!isEnable}
             />
           </label>
-          <span className="profile___error-message">{errors.name || ""}</span>
+          <span className="profile__error-message">{errors.name || ""}</span>
           <label className="profile__label">
-            <span className="profile___label-text">E-mail</span>
+            <span className="profile__label-text">E-mail</span>
             <input
               type="email"
               name="email"
@@ -64,7 +64,7 @@ function Profile({ isSending }) {
               required
             />
           </label>
-          <span className="profile___error-message">{errors.email || ""}</span>
+          <span className="profile__error-message">{errors.email || ""}</span>
           {isEnable && (
             <button
               type="submit"
