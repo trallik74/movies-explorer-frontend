@@ -1,44 +1,54 @@
 :root {
-    --white: #FFFFFF;
-    --black: #000000;
-    --gray_900: #202020;
-    --gray_800: #272727;
-    --gray_780: #2F2F2F; /* iput-color */
-    --gray_750: #303030;
-    --gray_720: #313131; /* account-button save-button */
-    --gray_700: #424242;
-    --gray_500: #8B8B8B;
-    --gray_450: #A0A0A0;
-    --gray_300:#C4C4C4; /* checkbox toggler color */
-    --gray_200:#DADADA;
-    --gray_100:#E6E6E6;
-    --raspberry_pink: #EE3465;
-    --azure: #4285F4; 
-    --lime_green: #3DDC84;
+  --white: #ffffff;
+  --black: #000000;
+  --gray_900: #202020;
+  --gray_800: #272727;
+  --gray_780: #2f2f2f; 
+  --gray_750: #303030;
+  --gray_720: #313131; 
+  --gray_700: #424242;
+  --gray_500: #8b8b8b;
+  --gray_450: #a0a0a0;
+  --gray_300: #c4c4c4; 
+  --gray_200: #dadada;
+  --gray_100: #e6e6e6;
+  --gray_50: #f5f5f5;
+  --raspberry_pink: #ee3465;
+  --azure: #4285f4;
+  --lime_green: #3ddc84;
 
-    --ui-background_color-primary: var(--gray_900);
+  --ui-background_color-primary: var(--gray_900);
 
-    --ui-background_color-main_1: var(--lime_green);
-    --ui-background_color-main_2: var(--azure);
-    --ui-background_color-main_3: var(--gray_780);
-    --ui-background_color-main_4: var(--gray_720);
+  --ui-background_color-main_1: var(--lime_green);
+  --ui-background_color-main_2: var(--azure);
+  --ui-background_color-main_3: var(--gray_780);
+  --ui-background_color-main_4: var(--gray_720);
 
-    --ui-background_color-landing_1: var(--gray_800);
-    --ui-background_color-landing_2: var(--gray_750);
+  --ui-background_color-landing_1: var(--gray_800);
+  --ui-background_color-landing_2: var(--gray_750);
 
-    --ui-border_row_color-stroke_1: var(--gray_200);
-    --ui-border_row_color-stroke_2: var(--gray_700);
-    --ui-border_row_color-stroke_3: var(--gray_100);
-    --ui-border_row_color-stroke_4: var(--black);
+  --ui-border_row_color-stroke_1: var(--gray_200);
+  --ui-border_row_color-stroke_2: var(--gray_700);
+  --ui-border_row_color-stroke_3: var(--gray_100);
+  --ui-border_row_color-stroke_4: var(--black);
 
-    --ui-text_color-font_main: var(--white);
-    --ui-text_color-font_main_1: var(--black);
-    --ui-text_color-font_main_2: var(--azure);
-    --ui-text_color-font_main_3: var(--raspberry_pink);
+  --ui-text_color-font_main: var(--white);
+  --ui-text_color-font_main_1: var(--black);
+  --ui-text_color-font_main_2: var(--azure);
+  --ui-text_color-font_main_3: var(--raspberry_pink);
 
-    --ui-text_color-font_1: var(--gray_450);
-    --ui-text_color-font_2: var(--gray_500);
-    
-    --ui-background_color-preloader_1: var(--lime_green);
-    --ui-background_color-preloader_2: var(--gray_900);
-  }
+  --ui-text_color-font_1: var(--gray_450);
+  --ui-text_color-font_2: var(--gray_500);
+
+  --ui-background_color-preloader_1: var(--lime_green);
+  --ui-background_color-preloader_2: var(--gray_900);
+
+  --ui-border_color-focus: var(--lime_green);
+
+  --ui-checkbox_toogler-color_active: var(--white);
+  --ui-checkbox_toogler-color_disabled: var(--gray_50);
+  --ui-checkbox_input-color_active: var(--lime_green);
+  --ui-checkbox_input-color_disabled: var(--gray_300);
+
+  --ui-button-color_disabled: var(--gray_300);
+}

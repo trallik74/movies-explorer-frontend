@@ -1,11 +1,10 @@
-
-@import url('./vendor/normalize.css');
-@import url('./vendor/fonts/fonts.css');
-@import url('./utils/variables.css');
+@import url("./vendor/normalize.css");
+@import url("./vendor/fonts/fonts.css");
+@import url("./utils/variables.css");
 
 .page {
-  font-family: 'Inter', arial, sans-serif;
+  font-family: "Inter", arial, sans-serif;
   font-weight: 400;
   background-color: var(--ui-background_color-primary, #202020);
-  color: var(--ui-text_color-font_main, #FFFFFF);
+  color: var(--ui-text_color-font_main, #ffffff);
 }

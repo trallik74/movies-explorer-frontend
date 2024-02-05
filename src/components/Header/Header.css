@@ -1,4 +1,12 @@
 .header {
+  max-width: 1280px;
+  min-width: 320px;
+  width: 100%;
+  margin: 0 auto;
+  flex: 0 0 auto;
+}
+
+.header__inner {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -7,19 +15,19 @@
 }
 
 @media (max-width: 1024px) {
-  .header {
+  .header__inner {
     padding: 18px 50px;
   }
 }
 
 @media (max-width: 800px) {
-  .header {
+  .header__inner {
     padding: 18px 30px;
   }
 }
 
 @media (max-width: 400px) {
-  .header {
+  .header__inner {
     padding: 18px 14px;
   }
 }
