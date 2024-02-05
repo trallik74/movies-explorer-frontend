@@ -9,9 +9,9 @@ function MoviesCardList({ data }) {
           По вашему запросу ничего не найдено
         </p>
       ) : (
-        data.map((movie) => (
+        data.map((movie, index) => (
           <MoviesCard
-            key={movie._id}
+            key={index}
             title={movie.nameRU}
             duration={movie.duration}
             link={movie.trailerLink}

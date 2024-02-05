@@ -14,7 +14,7 @@ function MoviesCard({ title, duration, link, image, isSaved }) {
     return `https://api.nomoreparties.co/${url}`;
   }
   return (
-    <article className="movies-card">
+    <article className="movies-card" aria-label={`Карточка фильма ${title}`}>
       <a
         href={link}
         className="movies-card__link"

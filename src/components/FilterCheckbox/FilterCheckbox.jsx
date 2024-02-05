@@ -15,7 +15,7 @@ function FilterCheckbox() {
         }}
         ref={checkbox}
       />
-      <div className="styled-chekbox"></div>Короткометражки
+      <span className="styled-chekbox"></span>Короткометражки
     </label>
   );
 }
