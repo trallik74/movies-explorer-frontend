@@ -6,7 +6,7 @@ function MoviesCardList({ data }) {
     <div className="movies-card-list">
       {data.length === 0 ? (
         <p className="movies-card-list__not-found-message">
-          По вашему запросу ничего не найдено
+          Ничего не найдено
         </p>
       ) : (
         data.map((movie, index) => (
