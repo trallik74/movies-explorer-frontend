@@ -1,11 +1,11 @@
 import "./Profile.css";
 import Header from "../Header";
 import { useContext, useState, useEffect } from "react";
-import { UserContext } from "../../context/UserContext";
+import { CurrentUserContext } from "../../context/CurrentUserContext";
 import { useFormValidation } from "../../hooks/useFormValidation";
 
 function Profile({ isSending }) {
-  const { userName, userEmail } = useContext(UserContext);
+  const { userName, userEmail } = useContext(CurrentUserContext);
   const [isEnable, setIsEnable] = useState(false);
   const { values, errors, isValid, handleChange, resetForm } =
     useFormValidation();

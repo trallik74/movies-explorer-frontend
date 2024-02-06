@@ -1,10 +1,10 @@
 import "./Navigation.css";
 import { Link, NavLink } from "react-router-dom";
 import { useContext, useState } from "react";
-import { UserContext } from "../../context/UserContext";
+import { CurrentUserContext } from "../../context/CurrentUserContext";
 
 function Navigation() {
-  const { isLoggedIn } = useContext(UserContext);
+  const { isLoggedIn } = useContext(CurrentUserContext);
   const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
 
   function handleCloseBurgerMenu() {

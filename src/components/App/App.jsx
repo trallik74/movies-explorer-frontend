@@ -8,10 +8,10 @@ import Login from "../Login";
 import Register from "../Register";
 import Main from "../Main";
 import { useState } from "react";
-import { UserContext } from "../../context/UserContext";
+import { CurrentUserContext } from "../../context/CurrentUserContext";
 
 function App() {
-  const [userData, setUserData] = useState({
+  const [currentUser, setCurrentUser] = useState({
     isLoggedIn: true,
     userName: "Виталий",
     userEmail: "pochta@yandex.ru",
@@ -19,7 +19,7 @@ function App() {
   const [isSending, setIsSending] = useState(false);
 
   return (
-    <UserContext.Provider value={userData}>
+    <CurrentUserContext.Provider value={currentUser}>
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/movies" element={<Movies isSending={isSending} />} />
@@ -29,7 +29,7 @@ function App() {
         <Route path="/signup" element={<Register isSending={isSending} />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
-    </UserContext.Provider>
+    </CurrentUserContext.Provider>
   );
 }
 
