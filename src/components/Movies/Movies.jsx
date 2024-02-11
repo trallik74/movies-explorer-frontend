@@ -4,127 +4,111 @@ import Footer from "../Footer";
 import SearchForm from "../SearchForm";
 import Preloader from "../Preloader";
 import MoviesCardList from "../MoviesCardList";
+import { useEffect, useState } from "react";
 
-function Movies({ isSending }) {
-  const testData = [
-    {
-      nameRU: "«Роллинг Стоунз» в изгнании",
-      duration: 61,
-      trailerLink: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-      image: {
-        url: "/uploads/stones_in_exile_b2f1b8f4b7.jpeg",
-      },
-      isSaved: true,
-    },
-    {
-      nameRU: "Без обратного пути",
-      duration: 104,
-      trailerLink: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-      image: {
-        url: "/uploads/blur_a43fcf463d.jpeg",
-      },
-      isSaved: false,
-    },
-    {
-      nameRU: "Фавела на взрыве",
-      duration: 80,
-      trailerLink: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-      image: {
-        url: "/uploads/881707734_640_d6a3a43358.jpeg",
-      },
-      isSaved: false,
-    },
-    {
-      nameRU: "«Роллинг Стоунз» в изгнании",
-      duration: 61,
-      trailerLink: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-      image: {
-        url: "/uploads/stones_in_exile_b2f1b8f4b7.jpeg",
-      },
-      isSaved: true,
-    },
-    {
-      nameRU: "Без обратного пути",
-      duration: 104,
-      trailerLink: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-      image: {
-        url: "/uploads/blur_a43fcf463d.jpeg",
-      },
-      isSaved: false,
-    },
-    {
-      nameRU: "Фавела на взрыве",
-      duration: 80,
-      trailerLink: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-      image: {
-        url: "/uploads/881707734_640_d6a3a43358.jpeg",
-      },
-      isSaved: false,
-    },
-    {
-      nameRU: "«Роллинг Стоунз» в изгнании",
-      duration: 61,
-      trailerLink: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-      image: {
-        url: "/uploads/stones_in_exile_b2f1b8f4b7.jpeg",
-      },
-      isSaved: true,
-    },
-    {
-      nameRU: "Gimme Danger: История Игги и The Stooges",
-      duration: 77,
-      trailerLink: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-      image: {
-        url: "/uploads/blur_a43fcf463d.jpeg",
-      },
-      isSaved: false,
-    },
-    {
-      nameRU: "Фавела на взрыве",
-      duration: 80,
-      trailerLink: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-      image: {
-        url: "/uploads/881707734_640_d6a3a43358.jpeg",
-      },
-      isSaved: false,
-    },
-    {
-      nameRU: "«Роллинг Стоунз» в изгнании",
-      duration: 61,
-      trailerLink: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-      image: {
-        url: "/uploads/stones_in_exile_b2f1b8f4b7.jpeg",
-      },
-      isSaved: true,
-    },
-    {
-      nameRU: "Без обратного пути",
-      duration: 104,
-      trailerLink: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-      image: {
-        url: "/uploads/blur_a43fcf463d.jpeg",
-      },
-      isSaved: false,
-    },
-    {
-      nameRU: "Фавела на взрыве",
-      duration: 80,
-      trailerLink: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-      image: {
-        url: "/uploads/881707734_640_d6a3a43358.jpeg",
-      },
-      isSaved: false,
-    },
-  ];
+function Movies({
+  isSending,
+  filterMoviesList,
+  getMoviesList,
+  handleInfoTooltip,
+  savedMoviesList,
+  handleMovieSave,
+  handleMovieDelete,
+}) {
+  const [currentMoviesList, setCurrentMoviesList] = useState([]);
+  const [inputValue, setInputValue] = useState("");
+  const [isSubmitEmpty, setIsSubmitEmpty] = useState(false);
+  const [isTumblerActive, setIsTumblerActive] = useState(false);
+  const [isNotFound, setIsNotFound] = useState(false);
+
+  useEffect(() => {
+    if (localStorage.getItem("movies")) {
+      const list = JSON.parse(localStorage.getItem("movies"));
+      const isActive = localStorage.getItem("isTumblerActive") === "true";
+      const value = localStorage.getItem("inputValue");
+
+      setIsTumblerActive(isActive);
+      setInputValue(value);
+      setCurrentMoviesList(filterMoviesList(list, isActive, value));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (currentMoviesList.length === 0 && inputValue !== "") {
+      setIsNotFound(true);
+    } else {
+      setIsNotFound(false);
+    }
+  }, [currentMoviesList]);
+
+  function handleChange(evt) {
+    if (isSubmitEmpty) {
+      setIsSubmitEmpty(false);
+    }
+    setInputValue(evt.target.value);
+  }
+
+  function handleTumblerChange() {
+    setIsTumblerActive(!isTumblerActive);
+  }
+
+  async function handleMovieList() {
+    if (!localStorage.getItem("movies")) {
+      let movies;
+      try {
+        movies = await getMoviesList();
+      } catch (err) {
+        console.log(err);
+        handleInfoTooltip({
+          message:
+            "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз",
+          isCorrect: false,
+        });
+      }
+      if (movies) {
+        localStorage.setItem("movies", JSON.stringify(movies));
+      }
+
+      return movies || [];
+    } else {
+      return JSON.parse(localStorage.getItem("movies"));
+    }
+  }
+
+  async function handleSubmit() {
+    if (inputValue === "") {
+      setIsSubmitEmpty(true);
+    } else {
+      const moviesList = await handleMovieList();
+      setCurrentMoviesList(
+        filterMoviesList(moviesList, isTumblerActive, inputValue)
+      );
+      localStorage.setItem("isTumblerActive", isTumblerActive);
+      localStorage.setItem("inputValue", inputValue);
+    }
+  }
 
   return (
     <div className="wrapper">
       <Header />
       <main className="movies">
-        <SearchForm />
+        <SearchForm
+          inputValue={inputValue}
+          isSubmitEmpty={isSubmitEmpty}
+          onChange={handleChange}
+          onSubmit={handleSubmit}
+          isTumblerActive={isTumblerActive}
+          handleTumblerChange={handleTumblerChange}
+          isSending={isSending}
+        />
         {isSending && <Preloader />}
-        <MoviesCardList data={testData} />
-        <button type="button" className="movies__button">Ещё</button>
+        <MoviesCardList
+          data={currentMoviesList}
+          isNotFound={isNotFound}
+          savedMoviesList={savedMoviesList}
+          handleMovieSave={handleMovieSave}
+          handleMovieDelete={handleMovieDelete}
+        />
       </main>
       <Footer />
     </div>

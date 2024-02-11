@@ -3,151 +3,74 @@ import Header from "../Header";
 import Footer from "../Footer";
 import SearchForm from "../SearchForm";
 import MoviesCardList from "../MoviesCardList";
+import { useEffect, useState } from "react";
 
-function SavedMovies() {
-  const testData = [
-    {
-      nameRU: "«Роллинг Стоунз» в изгнании",
-      duration: 61,
-      trailerLink: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-      image: {
-        url: "/uploads/stones_in_exile_b2f1b8f4b7.jpeg",
-      },
-      isSaved: true,
-    },
-    {
-      nameRU: "Без обратного пути",
-      duration: 104,
-      trailerLink: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-      image: {
-        url: "/uploads/blur_a43fcf463d.jpeg",
-      },
-      isSaved: false,
-    },
-    {
-      nameRU: "Фавела на взрыве",
-      duration: 80,
-      trailerLink: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-      image: {
-        url: "/uploads/881707734_640_d6a3a43358.jpeg",
-      },
-      isSaved: false,
-    },
-    {
-      nameRU: "«Роллинг Стоунз» в изгнании",
-      duration: 61,
-      trailerLink: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-      image: {
-        url: "/uploads/stones_in_exile_b2f1b8f4b7.jpeg",
-      },
-      isSaved: true,
-    },
-    {
-      nameRU: "Без обратного пути",
-      duration: 104,
-      trailerLink: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-      image: {
-        url: "/uploads/blur_a43fcf463d.jpeg",
-      },
-      isSaved: false,
-    },
-    {
-      nameRU: "Фавела на взрыве",
-      duration: 80,
-      trailerLink: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-      image: {
-        url: "/uploads/881707734_640_d6a3a43358.jpeg",
-      },
-      isSaved: false,
-    },
-    {
-      nameRU: "«Роллинг Стоунз» в изгнании",
-      duration: 61,
-      trailerLink: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-      image: {
-        url: "/uploads/stones_in_exile_b2f1b8f4b7.jpeg",
-      },
-      isSaved: true,
-    },
-    {
-      nameRU: "Без обратного пути",
-      duration: 104,
-      trailerLink: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-      image: {
-        url: "/uploads/blur_a43fcf463d.jpeg",
-      },
-      isSaved: false,
-    },
-    {
-      nameRU: "Фавела на взрыве",
-      duration: 80,
-      trailerLink: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-      image: {
-        url: "/uploads/881707734_640_d6a3a43358.jpeg",
-      },
-      isSaved: false,
-    },
-    {
-      nameRU: "«Роллинг Стоунз» в изгнании",
-      duration: 61,
-      trailerLink: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-      image: {
-        url: "/uploads/stones_in_exile_b2f1b8f4b7.jpeg",
-      },
-      isSaved: true,
-    },
-    {
-      nameRU: "Без обратного пути",
-      duration: 104,
-      trailerLink: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-      image: {
-        url: "/uploads/blur_a43fcf463d.jpeg",
-      },
-      isSaved: false,
-    },
-    {
-      nameRU: "Фавела на взрыве",
-      duration: 80,
-      trailerLink: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-      image: {
-        url: "/uploads/881707734_640_d6a3a43358.jpeg",
-      },
-      isSaved: false,
-    },
-    {
-      nameRU: "«Роллинг Стоунз» в изгнании",
-      duration: 61,
-      trailerLink: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-      image: {
-        url: "/uploads/stones_in_exile_b2f1b8f4b7.jpeg",
-      },
-      isSaved: true,
-    },
-    {
-      nameRU: "Без обратного пути",
-      duration: 104,
-      trailerLink: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-      image: {
-        url: "/uploads/blur_a43fcf463d.jpeg",
-      },
-      isSaved: false,
-    },
-    {
-      nameRU: "Фавела на взрыве",
-      duration: 80,
-      trailerLink: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-      image: {
-        url: "/uploads/881707734_640_d6a3a43358.jpeg",
-      },
-      isSaved: false,
-    },
-  ];
+function SavedMovies({
+  savedMoviesList,
+  handleMovieSave,
+  handleMovieDelete,
+  filterMoviesList,
+}) {
+  const [currentMoviesList, setCurrentMoviesList] = useState([]);
+  const [inputValue, setInputValue] = useState("");
+  const [isSubmitEmpty, setIsSubmitEmpty] = useState(false);
+  const [isTumblerActive, setIsTumblerActive] = useState(false);
+  const [isNotFound, setIsNotFound] = useState(false);
+
+  useEffect(() => {
+    if (currentMoviesList.length === 0 && inputValue !== "") {
+      setIsNotFound(true);
+    } else {
+      setIsNotFound(false);
+    }
+  }, [currentMoviesList]);
+
+  useEffect(() => {
+    setCurrentMoviesList(
+      filterMoviesList(savedMoviesList, isTumblerActive, inputValue)
+    );
+  }, [savedMoviesList]);
+
+  function handleChange(evt) {
+    if (isSubmitEmpty) {
+      setIsSubmitEmpty(false);
+    }
+    setInputValue(evt.target.value);
+  }
+
+  function handleTumblerChange() {
+    setIsTumblerActive(!isTumblerActive);
+  }
+
+  function handleSubmit() {
+    if (inputValue === "") {
+      setIsSubmitEmpty(true);
+    } else {
+      setCurrentMoviesList(
+        filterMoviesList(savedMoviesList, isTumblerActive, inputValue)
+      );
+    }
+  }
+
   return (
     <div className="wrapper">
       <Header />
       <main className="saved-movies">
-        <SearchForm />
-        <MoviesCardList data={testData} />
+        <SearchForm
+          inputValue={inputValue}
+          isSubmitEmpty={isSubmitEmpty}
+          onChange={handleChange}
+          onSubmit={handleSubmit}
+          isTumblerActive={isTumblerActive}
+          handleTumblerChange={handleTumblerChange}
+        />
+        <MoviesCardList
+          data={currentMoviesList}
+          savedMoviesList={savedMoviesList}
+          handleMovieSave={handleMovieSave}
+          handleMovieDelete={handleMovieDelete}
+          isNotFound={isNotFound}
+        />
       </main>
       <Footer />
     </div>

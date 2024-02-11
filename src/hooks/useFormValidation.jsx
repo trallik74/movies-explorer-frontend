@@ -1,4 +1,6 @@
 import { useState, useCallback } from "react";
+import { isEmail } from "validator";
+import { NAME_PATTERN } from "../utils/const";
 
 export function useFormValidation() {
   const [values, setValues] = useState({});
@@ -9,11 +11,24 @@ export function useFormValidation() {
     const input = evt.target;
     const value = input.value;
     const name = input.name;
+
+    if (name === "name" && value.length > 1 && NAME_PATTERN.test(value)) {
+      input.setCustomValidity(
+        "Имя должно содержать только кириллицу, латиницу, пробел или дефис."
+      );
+    } else if (name === "email" && !isEmail(value) && value !== "") {
+      input.setCustomValidity(
+        `E-mail должен быть в формате "pochta@yandex.ru"`
+      );
+    } else {
+      input.setCustomValidity("");
+    }
+
     setValues({ ...values, [name]: value });
     setErrors({ ...errors, [name]: input.validationMessage });
     setIsValid(input.closest("form").checkValidity());
   };
-
+  
   const resetForm = useCallback(
     (newValues = {}, newErrors = {}, newIsValid = false) => {
       setValues(newValues);
@@ -23,5 +38,5 @@ export function useFormValidation() {
     [setValues, setErrors, setIsValid]
   );
 
-  return {values, errors, isValid, handleChange, resetForm}
+  return { values, errors, isValid, handleChange, resetForm };
 }

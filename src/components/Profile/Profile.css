@@ -50,6 +50,10 @@
   font-weight: 500;
 }
 
+.profile__input:invalid {
+  color: var(--ui-text_color-font_main_3);
+}
+
 .profile__error-message {
   min-height: 12px;
   font-size: 10px;

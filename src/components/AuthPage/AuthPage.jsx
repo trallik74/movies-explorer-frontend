@@ -2,10 +2,19 @@ import Logo from "../Logo";
 import "./AuthPage.css";
 import { useFormValidation } from "../../hooks/useFormValidation";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
-function AuthPage({ isLogginPage, isSending }) {
+function AuthPage({ isLogginPage, isSending, onSubmit }) {
   const { values, errors, isValid, handleChange, resetForm } =
     useFormValidation();
+  const [isInputEdited, setIsInputEdited] = useState({});
+
+  function onInputChange(evt) {
+    handleChange(evt);
+    if (evt.target.name) {
+      setIsInputEdited({ ...isInputEdited, [evt.target.name]: true });
+    }
+  }
 
   return (
     <main className="auth">
@@ -16,19 +25,30 @@ function AuthPage({ isLogginPage, isSending }) {
             {isLogginPage ? "Рады видеть!" : "Добро пожаловать!"}
           </h2>
         </div>
-        <form className="auth-form" noValidate>
+        <form
+          className="auth-form"
+          noValidate
+          autoComplete="off"
+          onSubmit={(evt) => {
+            evt.preventDefault();
+            onSubmit(values);
+          }}
+        >
           {!isLogginPage && (
             <>
               <label className="auth-label">
                 Имя
                 <input
                   type="text"
-                  className="auth__input"
+                  className={`auth__input ${
+                    isInputEdited.name ? "auth__input_type_edited" : ""
+                  }`}
                   name="name"
                   value={values.name || ""}
-                  onChange={handleChange}
+                  onChange={onInputChange}
                   maxLength={30}
                   minLength={2}
+                  
                   required
                 />
               </label>
@@ -39,10 +59,13 @@ function AuthPage({ isLogginPage, isSending }) {
             E-mail
             <input
               type="email"
-              className="auth__input"
+              className={`auth__input ${
+                isInputEdited.email ? "auth__input_type_edited" : ""
+              }`}
               name="email"
               value={values.email || ""}
-              onChange={handleChange}
+              onChange={onInputChange}
+              
               required
             />
           </label>
@@ -51,10 +74,12 @@ function AuthPage({ isLogginPage, isSending }) {
             Пароль
             <input
               type="password"
-              className="auth__input"
+              className={`auth__input ${
+                isInputEdited.password ? "auth__input_type_edited" : ""
+              }`}
               name="password"
               value={values.password || ""}
-              onChange={handleChange}
+              onChange={onInputChange}
               required
             />
           </label>
@@ -68,7 +93,13 @@ function AuthPage({ isLogginPage, isSending }) {
             }`}
             disabled={!isValid || isSending}
           >
-            {isLogginPage ? "Войти" : "Зарегистрироваться"}
+            {isLogginPage
+              ? isSending
+                ? "Вход..."
+                : "Войти"
+              : isSending
+              ? "Регистрация..."
+              : "Зарегистрироваться"}
           </button>
         </form>
         <p className="auth__link-area">
