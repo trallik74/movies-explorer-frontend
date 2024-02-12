@@ -229,7 +229,6 @@ function App() {
   }
 
   function getSavedMoviesList() {
-    setIsSending(true);
     getSavedMovies()
       .then((res) => {
         setSavedMoviesList(res);
@@ -241,9 +240,6 @@ function App() {
             "Во время загрузки сохраненных фильмов произошла ошибка. Перезайдите в акаунт",
           isCorrect: false,
         });
-      })
-      .finally(() => {
-        setIsSending(false);
       });
   }
 
