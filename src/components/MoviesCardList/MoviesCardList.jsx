@@ -14,6 +14,7 @@ function MoviesCardList({
   const location = useLocation();
   const [moviesCardList, setMoviesCardList] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isButtonClick, setIsButtonClick] = useState(false);
   const [screenWidth, setScreenWidth] = useState(getWidth());
   const [renderSettings, setRenderSettings] = useState(handleRenderSettings());
 
@@ -32,15 +33,14 @@ function MoviesCardList({
 
   useEffect(() => {
     if (location.pathname === "/movies") {
-      handleRenderSettings();
-      setMoviesCardList([...data.slice(0, renderSettings.start)]);
+      setRenderSettings(handleRenderSettings());
     } else {
       setMoviesCardList([...data]);
     }
   }, [data]);
 
   useEffect(() => {
-    if (isLoaded) {
+    if (isLoaded && isButtonClick) {
       setMoviesCardList([
         ...moviesCardList,
         ...data.slice(
@@ -48,6 +48,11 @@ function MoviesCardList({
           moviesCardList.length + renderSettings.more
         ),
       ]);
+      setIsButtonClick(false);
+    } else {
+      if (location.pathname === "/movies") {
+        setMoviesCardList([...data.slice(0, renderSettings.start)]);
+      }
     }
   }, [renderSettings]);
 
@@ -66,6 +71,7 @@ function MoviesCardList({
   }
 
   function handleButtonClick() {
+    setIsButtonClick(true);
     setRenderSettings(handleRenderSettings());
   }
 
