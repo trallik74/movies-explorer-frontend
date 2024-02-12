@@ -1,7 +1,16 @@
 import { useLocation } from "react-router-dom";
+import { MOVIE_URL } from "../../utils/const";
 import "./MoviesCard.css";
 
-function MoviesCard({ title, duration, link, image, isSaved }) {
+function MoviesCard({
+  title,
+  duration,
+  link,
+  image,
+  isSaved,
+  onMovieSave,
+  onMovieDelete,
+}) {
   const location = useLocation().pathname;
 
   function convertTime(time) {
@@ -11,8 +20,9 @@ function MoviesCard({ title, duration, link, image, isSaved }) {
   }
 
   function convertImageUrl(url) {
-    return `https://api.nomoreparties.co/${url}`;
+    return `${MOVIE_URL}${url}`;
   }
+
   return (
     <article className="movies-card" aria-label={`Карточка фильма ${title}`}>
       <a
@@ -23,7 +33,7 @@ function MoviesCard({ title, duration, link, image, isSaved }) {
       >
         <img
           className="movies-card__image"
-          src={convertImageUrl(image)}
+          src={location === "/movies" ? convertImageUrl(image) : image}
           alt={title}
         />
       </a>
@@ -37,6 +47,7 @@ function MoviesCard({ title, duration, link, image, isSaved }) {
             isSaved ? "movies-card__button_type_saved" : ""
           }`}
           type="button"
+          onClick={isSaved ? onMovieDelete: onMovieSave}
         >
           {isSaved ? "" : "Сохранить"}
         </button>
@@ -44,6 +55,7 @@ function MoviesCard({ title, duration, link, image, isSaved }) {
         <button
           className="movies-card__button movies-card__button_type_delete"
           type="button"
+          onClick={onMovieDelete}
         />
       )}
     </article>

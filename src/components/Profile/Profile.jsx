@@ -1,11 +1,11 @@
 import "./Profile.css";
 import Header from "../Header";
 import { useContext, useState, useEffect } from "react";
-import { UserContext } from "../../context/UserContext";
+import { CurrentUserContext } from "../../context/CurrentUserContext";
 import { useFormValidation } from "../../hooks/useFormValidation";
 
-function Profile({ isSending }) {
-  const { userName, userEmail } = useContext(UserContext);
+function Profile({ isSending, onLogout, onProfileUpdate }) {
+  const { userName, userEmail } = useContext(CurrentUserContext);
   const [isEnable, setIsEnable] = useState(false);
   const { values, errors, isValid, handleChange, resetForm } =
     useFormValidation();
@@ -23,6 +23,19 @@ function Profile({ isSending }) {
     }
   }, [userName, userEmail, resetForm]);
 
+  async function handleSubmit(evt) {
+    evt.preventDefault();
+    try {
+      const isResStatusOk = await onProfileUpdate({
+        name: values.name,
+        email: values.email,
+      });
+      setIsEnable(!isResStatusOk);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   return (
     <>
       <Header />
@@ -30,11 +43,9 @@ function Profile({ isSending }) {
         <h2 className="profile__title">Привет, {userName}!</h2>
         <form
           className="profile__form"
-          onSubmit={(evt) => {
-            evt.preventDefault();
-            setIsEnable(!isEnable);
-          }}
+          onSubmit={handleSubmit}
           name="profile-form"
+          autoComplete="off"
           noValidate
         >
           <label className="profile__label">
@@ -44,11 +55,11 @@ function Profile({ isSending }) {
               name="name"
               className="profile__input"
               value={values.name || ""}
-              required
               minLength={2}
               maxLength={30}
               onChange={handleChange}
-              disabled={!isEnable}
+              disabled={!isEnable || isSending}
+              required
             />
           </label>
           <span className="profile__error-message">{errors.name || ""}</span>
@@ -60,7 +71,7 @@ function Profile({ isSending }) {
               className="profile__input"
               value={values.email || ""}
               onChange={handleChange}
-              disabled={!isEnable}
+              disabled={!isEnable || isSending}
               required
             />
           </label>
@@ -93,6 +104,8 @@ function Profile({ isSending }) {
         <button
           type="button"
           className="profile__button profile__button_type_logout"
+          aria-label="Кнопка выхода из аккаунта"
+          onClick={onLogout}
         >
           Выйти из аккаунта
         </button>

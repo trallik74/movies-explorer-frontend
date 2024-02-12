@@ -55,8 +55,6 @@
 }
 
 .movies-card__button_type_delete {
-  opacity: 1;
-  visibility: visible;
   width: 21px;
   height: 21px;
   border-radius: 50%;

@@ -51,4 +51,7 @@
   --ui-checkbox_input-color_disabled: var(--gray_300);
 
   --ui-button-color_disabled: var(--gray_300);
+
+  --ui-infoTooltip_background-color_correct: var(--lime_green);
+  --ui-infoTooltip_background-color_error: var(--raspberry_pink);   
 }

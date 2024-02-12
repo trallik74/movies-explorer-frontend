@@ -1,8 +1,14 @@
-import { useRef } from "react";
+import { useEffect, useState } from "react";
 import "./FilterCheckbox.css";
 
-function FilterCheckbox() {
-  const checkbox = useRef();
+function FilterCheckbox({ isTumblerActive, handleTumblerChange, onSubmit, isSending }) {
+  const [isClicked, setIsClicked] = useState(false);
+
+  useEffect(() => {
+    if (isClicked) {
+      onSubmit();
+    }
+  }, [isTumblerActive]);
 
   return (
     <label className="checkbox-label">
@@ -10,10 +16,14 @@ function FilterCheckbox() {
         type="checkbox"
         name="filter-checkbox"
         className="filter-checkbox"
-        onClick={() => {
-          console.log(checkbox.current.checked);
+        checked={isTumblerActive}
+        disabled={isSending}
+        onChange={() => {
+          if (!isClicked) {
+            setIsClicked(true);
+          }
+          handleTumblerChange();
         }}
-        ref={checkbox}
       />
       <span className="styled-chekbox"></span>Короткометражки
     </label>

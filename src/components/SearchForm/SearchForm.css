@@ -37,6 +37,14 @@
   color: var(--ui-text_color-font_2);
 }
 
+.search-form__input_type_empty {
+  outline: 1px solid var(--ui-text_color-font_main_3);
+}
+
+.search-form__input_type_empty::placeholder {
+  color: var(--ui-text_color-font_main_3);
+}
+
 .search-form__button {
   cursor: pointer;
   position: relative;

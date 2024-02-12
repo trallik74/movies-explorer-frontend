@@ -46,6 +46,10 @@
   border-radius: 8px;
 }
 
+.auth__input_type_edited:invalid {
+  color: var(--ui-text_color-font_main_3);
+}
+
 .auth__error-message {
   color: var(--ui-text_color-font_main_3);
   min-height: 12px;
