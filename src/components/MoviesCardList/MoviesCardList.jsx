@@ -33,10 +33,8 @@ function MoviesCardList({
   useEffect(() => {
     if (location.pathname === "/movies") {
       handleRenderSettings();
-      console.log(data);
       setMoviesCardList([...data.slice(0, renderSettings.start)]);
     } else {
-      console.log(data);
       setMoviesCardList([...data]);
     }
   }, [data]);

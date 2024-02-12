@@ -287,7 +287,6 @@ function App() {
   }
 
   function handleMovieDelete(id) {
-    console.log(id);
     deleteMovie(id)
       .then((res) => {
         setSavedMoviesList((movies) =>
