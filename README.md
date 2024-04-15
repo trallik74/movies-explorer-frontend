@@ -1,7 +1,5 @@
 # Сервис поиска фильмов movies-explorer
 
-Ссылка: https://trallik-bitfilms.nomoredomainsmonster.ru/
-
 ## Структура проекта
 - Frontend - текущий репозиторий
 - [Backend](https://github.com/trallik74/movies-explorer-api)
